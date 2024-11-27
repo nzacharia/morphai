@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils'
-import { SquareDashedMousePointerIcon } from 'lucide-react'
+import { Brain } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
 function Logo({
-    fontSize = 'text-2xl' ,
+    fontSize = 'text-4xl' ,
     iconSize =  20
 }:{ 
     fontSize?: string, 
@@ -15,7 +15,7 @@ function Logo({
     fontSize
 ) }>
     <div className="rounded-xl bg-gradient-to-r from-blue-400 to-blue-600 p-2">
-        <SquareDashedMousePointerIcon size={iconSize} className="stroke-white" />
+        <Brain size={iconSize} className="stroke-white" />
     </div>
     <div >
         <span className='bg-gradient-to-r from-blue-400 to-blue-600
