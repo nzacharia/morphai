@@ -1,42 +1,25 @@
-/**
- * Dashboard Layout
- * This is the main layout component for the dashboard section of the application.
- * It wraps all dashboard routes and provides consistent navigation and structure.
- */
-import React from 'react'
-import DesktopSidebar from '@/components/Sidebar'
 import BreadcrumbHeader from '@/components/BreadcrumbHeader'
+import DesktopSidebar from '@/components/Sidebar'
+import { Separator } from '@/components/ui/separator'
+import React from 'react'
 
-// Define the props type for the layout component
-interface DashboardLayoutProps {
-    children: React.ReactNode
-}
-
-function DashboardLayout({
-    children
-}: DashboardLayoutProps) {
-    return (
-        // Main dashboard container with grid layout
-        <div className='h-screen relative'>
-            <div className='flex h-full'>
-                {/* Sidebar navigation */}
-                <DesktopSidebar />
-                
-                {/* Main content area */}
-                <main className='flex-1 h-full overflow-y-auto'>
-                    {/* Top navigation with breadcrumbs */}
-                    <div className='p-6 border-b'>
-                        <BreadcrumbHeader />
-                    </div>
-                    
-                    {/* Page content */}
-                    <div className='p-6'>
-                        {children}
-                    </div>
-                </main>
+function layout({children}: {children: React.ReactNode}) {
+  return (
+    <div className='h-screen flex'>
+        <DesktopSidebar />
+      <div className='flex flex-col flex-1 min-h-screen'>
+        <header className='flex items-center justify-between px-6 py-4 h-[50px container]'>
+            <BreadcrumbHeader/>
+        </header>
+        <Separator />
+        <div className='overflow-auto'>
+            <div className='flex-1 container py-4 text-accent-foreground'>
+                {children}
             </div>
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
-export default DashboardLayout
+export default layout
