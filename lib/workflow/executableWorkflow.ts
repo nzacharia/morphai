@@ -6,6 +6,7 @@ import { waitFor } from "../helper/waitFor"
 import { ExecutionPhase } from "@prisma/client"
 import { AppNode } from "@/types/appNode"
 import { TaskRegistry } from "./task/registry"
+import { ExecutorRegistry } from "./executor/registry"
 export async function ExecuteWorkflow(executionId: string) {
     const execution = await prisma.workflowExecution.findUnique({
         where: { id: executionId },
@@ -121,14 +122,13 @@ async function executeWorkflowPhase(phase: ExecutionPhase) {
     })
 
     const creditsRequired = TaskRegistry[node.data.type].credits
-    console.log(`Executing phase ${phase.id}: ${creditsRequired} credits required`)
+    console.log(`Executing phase ${phase.name}: ${creditsRequired} credits required`)
 
     //TODO: decrement credits balance
 
     //Exute phase simulation
 
-    await waitFor(2000)
-    const success = Math.random() < 0.8
+    const success = await executePhase(phase,node)
 
     await finalizePhase(phase.id, success)
     return { success }
@@ -140,4 +140,11 @@ async function finalizePhase(phaseId: string, success: boolean) {
         where: { id: phaseId },
         data: { status: finalStatus, completedAt: new Date() }
     })
+}
+
+async function executePhase(phase: ExecutionPhase, node: AppNode): Promise<boolean> {
+    
+    const runFn = ExecutorRegistry[node.data.type]
+    if (!runFn) return false
+    return await runFn()
 }
