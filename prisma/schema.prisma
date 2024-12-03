@@ -11,16 +11,16 @@ datasource db {
 }
 
 model Workflow {
-  id String @id @default(cuid())
-  userId String
-  name String
+  id          String  @id @default(cuid())
+  userId      String
+  name        String
   description String?
 
   definition String
-  status String
+  status     String
 
-  lastRunAt DateTime?
-  lastRunId String?
+  lastRunAt     DateTime?
+  lastRunId     String?
   lastRunStatus String?
 
   createdAt DateTime @default(now())
@@ -32,24 +32,24 @@ model Workflow {
   @@unique([name, userId])
 }
 
-
 model WorkflowExecution {
-  id                String            @id @default(cuid())
-  workflowId        String
-  userId            String
-  trigger           String
-  status            String
-  createdAt         DateTime          @default(now())
-  startedAt         DateTime?
-  completedAt       DateTime?
-  creditsConsumed   Int               @default(0)
-  phases   ExecutionPhase[]
+  id              String           @id @default(cuid())
+  workflowId      String
+  userId          String
+  trigger         String
+  status          String
+  createdAt       DateTime         @default(now())
+  startedAt       DateTime?
+  completedAt     DateTime?
+  creditsConsumed Int              @default(0)
+  definition      String           @default("")
+  phases          ExecutionPhase[]
 
   workflow Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 }
 
 model ExecutionPhase {
-  id                  String    @id @default(cuid())
+  id                  String            @id @default(cuid())
   userId              String
   status              String
   number              Int
@@ -57,8 +57,8 @@ model ExecutionPhase {
   name                String
   startedAt           DateTime?
   completedAt         DateTime?
-  inputs              String?    // Consider using JSON if storing structured data
-  outputs             String?    // Consider using JSON if storing structured data
+  inputs              String? // Consider using JSON if storing structured data
+  outputs             String? // Consider using JSON if storing structured data
   creditsConsumed     Int?
   workflowExecutionId String
   workflowExecution   WorkflowExecution @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
