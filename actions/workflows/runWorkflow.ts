@@ -5,6 +5,7 @@ import { WorkflowExecutionPlan, WorkflowExecutionStatus, ExecutionPhaseStatus, W
 import { FlowToExecutionPlan } from "../../lib/workflow/executionPlan"
 import { TaskRegistry } from "@/lib/workflow/task/registry"
 import { redirect } from "next/navigation"
+import { ExecuteWorkflow } from "@/lib/workflow/executableWorkflow"
 export async function RunWorkflow(form: {
     workflowId: string
     flowDefinition?: string
@@ -70,7 +71,7 @@ export async function RunWorkflow(form: {
         throw new Error("workflow execution not created")
     }
 
-
+    ExecuteWorkflow(execution.id); //run this in the background
     redirect(`/workflow/runs/${workflowId}/${execution.id}`)
     
 }
