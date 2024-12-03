@@ -8,8 +8,9 @@ import { Button } from '../../../../components/ui/button'
 import { useReactFlow } from '@xyflow/react'
 import { CreateFlowNode } from '../../../../lib/workflow/createFlowNode'
 import { AppNode } from '../../../../types/appNode'
+import { TaskType } from '@/types/task'
 
-function NodeHeader({taskType,nodeId}:{taskType:string,nodeId:string}) {
+function NodeHeader({taskType,nodeId}:{taskType:TaskType,nodeId:string}) {
     const task = TaskRegistry[taskType];
     const {deleteElements,getNode,addNodes} = useReactFlow()
   return (
