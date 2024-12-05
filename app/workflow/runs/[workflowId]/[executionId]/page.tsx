@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import TopBar from '../../../_components/topbar/TopBar'
+import TopBar from '../../../_components/topbar/Topbar'
 import { waitFor } from '../../../../../lib/helper/waitFor'
 import { Loader2Icon } from 'lucide-react'
 import { auth } from '@clerk/nextjs/server'
