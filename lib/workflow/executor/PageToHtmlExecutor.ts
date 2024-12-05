@@ -4,7 +4,6 @@ import { PageToHtmlTask } from "@/lib/workflow/task/PageToHtml"
 
 export async function PageToHtmlExecutor(environment: ExecutionEnvironment<typeof PageToHtmlTask>): Promise<boolean> {
     try {
-        throw new Error("test")
         const html = await environment.getPage()!.content()
         environment.setOutput("Html", html)
 

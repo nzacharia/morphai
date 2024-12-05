@@ -9,6 +9,7 @@ import { usePathname } from 'next/navigation'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
 import { MenuIcon } from 'lucide-react'
 import { useState } from 'react'
+import UserAvailableCreditsBadge from './UserAvailableCreditsBadge'
 const routes = [
     {
         label: "Home",
@@ -46,7 +47,7 @@ function DesktopSidebar() {
                 <Logo />
             </div>
             <div className='p-2'>
-                TODO CREDITS
+                <UserAvailableCreditsBadge />
 
             </div>
                 <div className='flex flex-col p2'>
@@ -85,6 +86,7 @@ export function MobileSidebar() {
     </SheetTrigger>
     <SheetContent side="left" className='w-[400px] sm:w-[540px] space-y-4'>
         <Logo />
+        <UserAvailableCreditsBadge />
         <div className='flex flex-col gap-1'>
         {routes.map((route) => (
                     <Link key={route.href} href={route.href}
