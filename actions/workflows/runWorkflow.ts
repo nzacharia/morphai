@@ -6,6 +6,7 @@ import { FlowToExecutionPlan } from "../../lib/workflow/executionPlan"
 import { TaskRegistry } from "@/lib/workflow/task/registry"
 import { redirect } from "next/navigation"
 import { ExecuteWorkflow } from "@/lib/workflow/executableWorkflow"
+import { WorkflowStatus } from "@/types/workflow"
 export async function RunWorkflow(form: {
     workflowId: string
     flowDefinition?: string
@@ -28,18 +29,28 @@ export async function RunWorkflow(form: {
         return { error: "workflow not found" }
     }
     let executionPlan: WorkflowExecutionPlan
-    if (!flowDefinition) {
-        throw new Error("flowDefinition is not provided")
+    let workflowDefinition = workflow.definition
+    if (workflow.status === WorkflowStatus.PUBLISHED) {
+        if (!workflow.executionPlan) {
+            throw new Error("execution plan not found")
+        }
+        executionPlan = JSON.parse(workflow.executionPlan)
+        workflowDefinition = workflow.definition
+    } else {
+        if (!flowDefinition) {
+            throw new Error("flowDefinition is not provided")
+        }
+        const flow = JSON.parse(flowDefinition)
+        const result = FlowToExecutionPlan(flow.nodes, flow.edges)
+        if (result.error) {
+            throw new Error("flow definition not found")
+        }
+        if (!result.executionPlan) {
+            throw new Error("no execution plan generated")
+        }
+        executionPlan = result.executionPlan
     }
-    const flow = JSON.parse(flowDefinition)
-    const result = FlowToExecutionPlan(flow.nodes, flow.edges)
-    if (result.error) {
-        throw new Error("flow definition not found")
-    }
-    if (!result.executionPlan) {
-        throw new Error("no execution plan generated")
-    }
-    executionPlan = result.executionPlan
+
 
     const execution = await prisma.workflowExecution.create({
         data: {
@@ -47,12 +58,12 @@ export async function RunWorkflow(form: {
             userId,
             trigger: WorkflowExecutionTrigger.MANUAL,
             status: WorkflowExecutionStatus.PENDING,
-            definition: flowDefinition,
+            definition: workflowDefinition,
             startedAt: new Date(),
             phases: {
                 create: executionPlan.flatMap((phase) => {
                     return phase.nodes.flatMap((node) => {
-                        return{
+                        return {
                             userId,
                             status: ExecutionPhaseStatus.CREATED,
                             number: phase.phase,
@@ -63,16 +74,16 @@ export async function RunWorkflow(form: {
                 })
             }
         },
-        select:{
+        select: {
             id: true,
             phases: true
         }
     })
-    if(!execution) {
+    if (!execution) {
         throw new Error("workflow execution not created")
     }
 
     ExecuteWorkflow(execution.id); //run this in the background
     redirect(`/workflow/runs/${workflowId}/${execution.id}`)
-    
+
 }
