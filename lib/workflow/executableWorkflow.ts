@@ -174,7 +174,10 @@ async function executePhase(phase: ExecutionPhase, node: AppNode, environment: E
 
     const runFn = ExecutorRegistry[node.data.type]
     // await waitFor(3000)
-    if (!runFn) return false
+    if (!runFn) {
+        logCollector.error(`No executor found executor ${node.data.type}`)
+        return false
+    } 
     const executionEnvironment: ExecutionEnvironment<any> = createExecutionEnvironment(node, environment, logCollector)
     return await runFn(executionEnvironment)
 }
