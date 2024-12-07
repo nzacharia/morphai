@@ -27,6 +27,7 @@ function TaskMenu() {
                <AccordionTrigger className='font-bold'>Data storage</AccordionTrigger>
                <AccordionContent className='flex flex-col gap-1'>
                    <TaskMenuBtn taskType={TaskType.READ_PROPERTY_FROM_JSON}/>
+                   <TaskMenuBtn taskType={TaskType.ADD_PROPERTY_TO_JSON}/>
                </AccordionContent>
            </AccordionItem>
            <AccordionItem value='timing'>

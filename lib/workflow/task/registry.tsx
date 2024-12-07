@@ -9,6 +9,7 @@ import { WaitForElementTask } from "./WaitForElement";
 import { DeliverViaWebhookTask } from "./DeliverViaWebhook";
 import { ExtractDataWithAITask } from "./ExtractDataWithAI";
 import { ReadPropertyFromJsonTask } from "./ReadPropertyFromJson";
+import { AddPropertyToJsonTask } from "./AddPropertyToJson";
 
 
 
@@ -27,5 +28,6 @@ export const TaskRegistry:Registry = {
     WAIT_FOR_ELEMENT:WaitForElementTask,
     DELIVER_VIA_WEBHOOK:DeliverViaWebhookTask,
     EXTRACT_DATA_WITH_AI:ExtractDataWithAITask,
-    READ_PROPERTY_FROM_JSON:ReadPropertyFromJsonTask
+    READ_PROPERTY_FROM_JSON:ReadPropertyFromJsonTask,
+    ADD_PROPERTY_TO_JSON:AddPropertyToJsonTask
 }
