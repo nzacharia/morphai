@@ -40,10 +40,29 @@ function UserWorkflowsSkeleton() {
 }
 
 async function UserWorkflows() {
-    const workflows = await getWorfkflowsForUser()
+
     try{
         const workflows = await getWorfkflowsForUser()
-        
+        if (workflows.length === 0) {
+            return <div className='flex flex-col gap-4 h-full justify-center items-center'>
+                <div className='rounded-full bg-accent w-20 h-20 flex items-center justify-center'>
+                    <InboxIcon size={40} className='stroke-primary' />
+                </div>
+                <div className='flex flex-col gap-1 items-center'>
+                    <p className='text-lg font-semibold'>No workflows created yet</p>
+                    <p className='text-sm text-muted-foreground'>Create a workflow to get started</p>
+                </div>
+                <CreateWorkflowDialog triggerText='Create your first workflow' />
+            </div>
+        }
+    
+        return <div className='grid grid-cols-1  gap-4'>
+            {
+                workflows.map((workflow) => (
+                    <WorkflowCard key={workflow.id} workflow={workflow} />
+                ))
+            }
+        </div>
     }catch(error){
         return <Alert variant='destructive'>
             <AlertCircleIcon className='h-4 w-4' />
@@ -52,26 +71,7 @@ async function UserWorkflows() {
         </Alert>
     }
     
-    if (workflows.length === 0) {
-        return <div className='flex flex-col gap-4 h-full justify-center items-center'>
-            <div className='rounded-full bg-accent w-20 h-20 flex items-center justify-center'>
-                <InboxIcon size={40} className='stroke-primary' />
-            </div>
-            <div className='flex flex-col gap-1 items-center'>
-                <p className='text-lg font-semibold'>No workflows created yet</p>
-                <p className='text-sm text-muted-foreground'>Create a workflow to get started</p>
-            </div>
-            <CreateWorkflowDialog triggerText='Create your first workflow' />
-        </div>
-    }
 
-    return <div className='grid grid-cols-1  gap-4'>
-        {
-            workflows.map((workflow) => (
-                <WorkflowCard key={workflow.id} workflow={workflow} />
-            ))
-        }
-    </div>
 
 }
 
