@@ -27,7 +27,8 @@ function CreateCredentialDialog({triggerText}:{triggerText?: string}) {
         mutationFn: CreateCredential,
         onSuccess: () => {
             toast.success("Credential created", {id: "create-credential"})
-            setOpen(prev => !prev)
+            form.reset()
+            setOpen(false)
         },
         onError: (error) => {
             toast.error("Failed to create workflow", {id: "create-workflow"})
@@ -40,10 +41,7 @@ function CreateCredentialDialog({triggerText}:{triggerText?: string}) {
         mutate(values)
     }, [mutate])
   return (
-   <Dialog open={open} onOpenChange={open => {
-    setOpen(open)
-    form.reset()
-   }}>
+   <Dialog open={open} onOpenChange={setOpen}>
     <DialogTrigger asChild>
         <Button>{triggerText ?? "Create"}</Button>
     </DialogTrigger>
