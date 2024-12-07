@@ -9,7 +9,7 @@ export async function ClickElementExecutor(environment: ExecutionEnvironment<typ
             environment.log.error("input->selector is required")
             return false
            }
-           await environment.getPage()!.click(selector,)
+           await environment.getPage()!.click(selector)
         return true
     } catch (error: any) {
         environment.log.error(error.message)    
