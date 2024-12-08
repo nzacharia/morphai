@@ -9,9 +9,7 @@ import { DownloadInvoice } from '@/actions/billing/downloadInvoice'
 function InvoiceBtn({ id }: { id: string }) {
     const stripeEnabled = process.env.NEXT_PUBLIC_STRIPE_ENABLED === 'true'
     
-    if (!stripeEnabled) {
-        return null // Hide the button when Stripe is disabled
-    }
+
     const mutation = useMutation({
         mutationFn:  DownloadInvoice,
         onSuccess: (data) => {
@@ -21,6 +19,9 @@ function InvoiceBtn({ id }: { id: string }) {
             toast.error('Failed to download invoice')
         }
     })
+    if (!stripeEnabled) {
+        return null // Hide the button when Stripe is disabled
+    }
   return (
     <Button 
     variant="ghost" 
