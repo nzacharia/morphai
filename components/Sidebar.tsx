@@ -14,22 +14,22 @@ const routes = [
     {
         label: "Home",
         icon: HomeIcon,
-        href: "/"
+        href: ""
     },
     {
         label: "Workflows",
         icon: Layers2Icon,
-        href: "/workflows"
+        href: "workflows"
     },
     {
         label: "Credentials",
         icon: ShieldCheckIcon,
-        href: "/credentials"
+        href: "credentials"
     },
     {
         label: "Billing",
         icon: CoinsIcon,
-        href: "/billing"
+        href: "billing"
     },
 ]
 
@@ -52,7 +52,7 @@ function DesktopSidebar() {
             </div>
                 <div className='flex flex-col p2'>
                     {routes.map((route) => (
-                    <Link key={route.href} href={route.href}
+                    <Link key={route.href} href={`/${route.href}`}
                     className={
                         buttonVariants({
                             variant: activeRoute?.href === route.href ? "sidebarActive" : "sidebarItem",
