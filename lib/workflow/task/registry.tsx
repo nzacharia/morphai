@@ -12,6 +12,7 @@ import { ReadPropertyFromJsonTask } from "./ReadPropertyFromJson";
 import { AddPropertyToJsonTask } from "./AddPropertyToJson";
 import { NavigateUrlTask } from "./NavigateUrl";
 import { ScrollToElementTask } from "./ScrollToElement";
+import { TextModerationAiAgentTask } from "./TextModerationAiAgent";
 
 
 type Registry = {
@@ -32,5 +33,6 @@ export const TaskRegistry:Registry = {
     READ_PROPERTY_FROM_JSON:ReadPropertyFromJsonTask,
     ADD_PROPERTY_TO_JSON:AddPropertyToJsonTask,
     NAVIGATE_URL:NavigateUrlTask,
-    SCROLL_TO_ELEMENT:ScrollToElementTask
+    SCROLL_TO_ELEMENT:ScrollToElementTask,
+    TEXT_MODERATION_AI_AGENT:TextModerationAiAgentTask
 }

@@ -14,7 +14,7 @@ const routes = [
     {
         label: "Home",
         icon: HomeIcon,
-        href: "/home"
+        href: "/"
     },
     {
         label: "Workflows",

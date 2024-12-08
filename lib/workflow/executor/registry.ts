@@ -13,6 +13,7 @@ import { ReadPropertyFromJsonExecutor } from "./ReadPropertyFromJsonExecutor"
 import { AddPropertyToJsonExecutor } from "./AddPropertyToJsonExecutor"
 import { NavigateUrlExecutor } from "./NavigateUrlExecutor"
 import { ScrollToElementExecutor } from "./ScrollToElementExecutor"
+import { TextModerationAiAgentExecutor } from "./TextModerationAiAgentExecutor"
 type ExecutorFn<T extends WorkflowTask> = (environment: ExecutionEnvironment<T>) => Promise<boolean>
 
 type RegistryType = {
@@ -30,7 +31,8 @@ export const ExecutorRegistry: RegistryType = {
     READ_PROPERTY_FROM_JSON: ReadPropertyFromJsonExecutor,
     ADD_PROPERTY_TO_JSON: AddPropertyToJsonExecutor,
     NAVIGATE_URL: NavigateUrlExecutor,
-    SCROLL_TO_ELEMENT: ScrollToElementExecutor
+    SCROLL_TO_ELEMENT: ScrollToElementExecutor,
+    TEXT_MODERATION_AI_AGENT: TextModerationAiAgentExecutor
 }
 
 

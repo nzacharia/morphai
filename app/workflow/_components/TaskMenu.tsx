@@ -4,10 +4,12 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '..
 import { TaskType } from '../../../types/task'
 import { TaskRegistry } from '../../../lib/workflow/task/registry'
 import { Button } from '../../../components/ui/button'
+import { CoinsIcon } from 'lucide-react'
+import { Badge } from '../../../components/ui/badge'
 function TaskMenu() {
   return (
     <aside className='w-[340px] min-w-[340px] max-w-[340px] border-r-2 border-separate h-full p-2 px-4 overflow-auto'>
-        <Accordion type='multiple' className='w-full' defaultValue={['interactions','extraction','storage','timing','delivery']}>
+        <Accordion type='multiple' className='w-full' defaultValue={['interactions','aiagents','extraction','storage','timing','delivery']}>
            <AccordionItem value='interactions'>
                <AccordionTrigger className='font-bold'>User Interactions</AccordionTrigger>
                <AccordionContent className='flex flex-col gap-1'>
@@ -15,6 +17,13 @@ function TaskMenu() {
                    <TaskMenuBtn taskType={TaskType.CLICK_ELEMENT}/>
                    <TaskMenuBtn taskType={TaskType.NAVIGATE_URL}/>
                    <TaskMenuBtn taskType={TaskType.SCROLL_TO_ELEMENT}/>
+               </AccordionContent>
+           </AccordionItem>
+           <AccordionItem value='aiagents'>
+               <AccordionTrigger className='font-bold'>AI Agents</AccordionTrigger>
+               <AccordionContent className='flex flex-col gap-1'>
+                   <TaskMenuBtn taskType={TaskType.TEXT_MODERATION_AI_AGENT}/>
+                   
                </AccordionContent>
            </AccordionItem>
            <AccordionItem value='extraction'>
@@ -71,5 +80,9 @@ function TaskMenuBtn({taskType}:{taskType:TaskType}){
             <task.icon size={20}/>
             {task.label}
         </div>
+        <Badge className='flex items-center gap-2' variant='outline'>
+            <CoinsIcon size={16}/>
+            {task.credits}
+        </Badge>
     </Button>
 }
