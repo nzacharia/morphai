@@ -8,10 +8,10 @@ import NextTopLoader from 'nextjs-toploader';
 export  function AppProviders({children}:{children: React.ReactNode}){
     const [queryClient] = useState(() => new QueryClient())
     return (
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient} >
             <NextTopLoader color="#2563eb" showSpinner={false} />
             <ThemeProvider attribute="class" defaultTheme="system" enableSystem>{children}</ThemeProvider>
-            <ReactQueryDevtools />
+            
         </QueryClientProvider>
         
     )

@@ -20,7 +20,7 @@ function Logo({
     <div >
         <span className='bg-gradient-to-r from-blue-400 to-blue-600
             bg-clip-text text-transparent'>
-            morph
+            thundr
         </span>
         <span className='text-stone-700 dark:text-stone-300'>
             ai</span>
