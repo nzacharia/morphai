@@ -8,6 +8,11 @@ import stripe from "@/lib/stripe/stripe"
 import { getAppUrl } from "@/lib/helper/appUrl"
 import { redirect } from "next/navigation"
 export async function PurchaseCredits(packId: PackId) {
+    const stripeEnabled = process.env.NEXT_PUBLIC_STRIPE_ENABLED === 'true'
+    
+    if (!stripeEnabled) {
+        throw new Error("Billing is currently disabled")
+    }
     const { userId } = auth()
     if (!userId) {
         throw new Error("unauthenticated")

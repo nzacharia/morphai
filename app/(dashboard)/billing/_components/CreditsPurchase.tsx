@@ -20,6 +20,7 @@ import { toast } from 'sonner'
 import { PurchaseCredits } from '@/actions/billing/purchaseCredits'
 function CreditsPurchase() {
     const [selectedPack, setSelectedPack] = useState(PackId.MEDIUM)
+    const stripeEnabled = process.env.NEXT_PUBLIC_STRIPE_ENABLED === 'true'
     const handlePackChange = (value: string) => {
         setSelectedPack(value as PackId)
     }
@@ -32,6 +33,16 @@ function CreditsPurchase() {
             toast.error("Something went wrong")
         }
     })
+    if (!stripeEnabled) {
+        return (
+            <Card>
+                <CardHeader>
+                    <CardTitle>Purchase Credits</CardTitle>
+                    <CardDescription>Billing is currently disabled</CardDescription>
+                </CardHeader>
+            </Card>
+        )
+    }
   return (
     <Card>
         <CardHeader>
@@ -40,7 +51,7 @@ function CreditsPurchase() {
                 Purchase Credits
             </CardTitle>
             <CardDescription>
-                Purchase credits to continue using Morphai.
+                Purchase credits to continue using thundrAI.
             </CardDescription>
         </CardHeader>
         <CardContent>

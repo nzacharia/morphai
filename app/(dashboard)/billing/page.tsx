@@ -74,6 +74,18 @@ function formatAmount(amount: number, currency: string) {
 }
 
 async function TransactionHistoryCard() {
+    const stripeEnabled = process.env.NEXT_PUBLIC_STRIPE_ENABLED === 'true'
+    
+    if (!stripeEnabled) {
+        return (
+            <Card>
+                <CardHeader>
+                    <CardTitle>Transaction History</CardTitle>
+                    <CardDescription>Billing is currently disabled</CardDescription>
+                </CardHeader>
+            </Card>
+        )
+    }
     const purchases = await GetUserPurchasesHistory()
     return (
         <Card>
